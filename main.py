@@ -6,25 +6,46 @@ from pydantic import BaseModel
 app = FastAPI()
 
 
-class Item(BaseModel):
+# class Item(BaseModel):
+#     name: str
+#     price: float
+#     is_offer: Union[bool, None] = None
+
+# @app.get("/items/{item_id}")
+# def read_item(item_id: int, q: Union[str, None] = None):
+#     return {"item_id": item_id, "q": q}
+
+# @app.put("/items/{item_id}")
+# def update_item(item_id: int, item: Item):
+#     return {"item_name": item.name, "item_id": item_id}
+
+
+### A partir de aca API posta ###
+
+# I declare all the models
+
+class Brand(BaseModel):
+    id: int
     name: str
-    price: float
-    is_offer: Union[bool, None] = None
+
+class Category(BaseModel):
+    id: int
+    name: str
+
+class Product(BaseModel):
+    id: int
+    name: str
+    price: int
+    brand: Brand
+    category: Category
+
+# I declare all the endpoints
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id}
-
-# A partir de aca API posta
-
+# This route receives query params to filter search
 @app.get("/products")
 def read_products(q: Union[str, None] = None):
     return {"Hello": "World"}
