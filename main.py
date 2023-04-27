@@ -47,7 +47,15 @@ def read_root():
 
 # This route receives query params to filter search
 @app.get("/products")
-def read_products(q: Union[str, None] = None):
+def read_products(
+    brand: Union[str, None] = None,
+    category: Union[str, None] = None,
+    name: Union[str, None] = None
+):
+    return {"Hello": "World"}
+
+@app.post("/products")
+def create_product(product: Product):
     return {"Hello": "World"}
 
 @app.get("/products/{item_id}")
