@@ -36,8 +36,14 @@ class Product(BaseModel):
         gt = 0,
         max_digits = 2
     )
-    brand: Brand
-    category: Category
+    brandId: int = Field(
+        title="The id of the brand record",
+        description="The brand record needs to be already created"
+    )
+    categoryId: int = Field(
+        title="The id of the category record",
+        description="The category record needs to be already created"
+    )
 
 #### I declare all the endpoints ###
 
