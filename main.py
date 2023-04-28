@@ -1,45 +1,45 @@
 from typing import Union
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, condecimal
 
-
+# Start the app
 app = FastAPI()
 
-
-# class Item(BaseModel):
-#     name: str
-#     price: float
-#     is_offer: Union[bool, None] = None
-
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Union[str, None] = None):
-#     return {"item_id": item_id, "q": q}
-
-# @app.put("/items/{item_id}")
-# def update_item(item_id: int, item: Item):
-#     return {"item_name": item.name, "item_id": item_id}
-
-
-### A partir de aca API posta ###
-
-# I declare all the models
+### I declare all the models ###
 
 class Brand(BaseModel):
     id: int
-    name: str
+    name: str = Field(
+        title="The name of the brand",
+        description="The name has a maximum length of 50 characters",
+        max_length=50
+    )
 
 class Category(BaseModel):
     id: int
-    name: str
+    name: str = Field(
+        title="The name of the category",
+        description="The name has a maximum length of 30 characters",
+        max_length=30
+    )
 
 class Product(BaseModel):
     id: int
-    name: str
-    price: int
+    name: str = Field(
+        title="The name of the product",
+        description="The name has a maximum length of 50 characters",
+        max_length=50
+    )
+    price: condecimal(
+        # title="The price of the product",
+        # description="The price has to be greater than 0, and has a maximum number of 2 digits within the decimal",
+        gt = 0,
+        max_digits = 2
+    )
     brand: Brand
     category: Category
 
-# I declare all the endpoints
+#### I declare all the endpoints ###
 
 @app.get("/")
 def read_root():
