@@ -34,8 +34,6 @@ class Product(BaseModel):
         example = "POCO M3"
     )
     price: condecimal(
-        # title="The price of the product",
-        # description="The price has to be greater than 0, and has a maximum number of 2 digits within the decimal",
         gt = 0,
         max_digits = 2
     )
@@ -50,12 +48,12 @@ class Product(BaseModel):
 
 #### I declare all the endpoints ###
 
-@app.get("/")
-def read_root():
+@app.get("/", response_model = dict)
+def read_root() -> dict:
     return {"Hello": "World"}
 
 # This route receives query params to filter search
-@app.get("/products")
+@app.get("/products", response_model = list[Product])
 def read_products(
     brand: Union[str, None] = None,
     category: Union[str, None] = None,
