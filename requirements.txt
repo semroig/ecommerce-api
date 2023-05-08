@@ -1,2 +1,14 @@
-fastapi
-uvicorn
+anyio==3.6.2
+click==8.1.3
+distlib==0.3.6
+fastapi==0.95.1
+filelock==3.12.0
+h11==0.14.0
+idna==3.4
+platformdirs==3.5.0
+pydantic==1.10.7
+sniffio==1.3.0
+starlette==0.26.1
+typing_extensions==4.5.0
+uvicorn==0.22.0
+virtualenv==20.23.0
