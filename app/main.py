@@ -61,18 +61,18 @@ def read_products(
 ):
     return {"Hello": "World"}
 
-@app.post("/products")
+@app.post("/products", response_model = Product)
 def create_product(product: Product):
     return {"Hello": "World"}
 
-@app.get("/products/{item_id}")
+@app.get("/products/{item_id}", response_model = Product)
 def read_product(item_id: int):
     return {"Hello": "World"}
 
-@app.get("/brands")
+@app.get("/brands", response_model = list[Brand])
 def read_brands():
     return {"Hello": "World"}
 
-@app.get("/categories")
+@app.get("/categories", response_model = list[Category])
 def read_categories():
     return {"Hello": "World"}
