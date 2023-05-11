@@ -42,18 +42,33 @@ class Product(BaseModel):
     )
 
 
-# Revisar los siguientes models
-class UserBase(BaseModel):
-    username: str
-    email: str
-    full_name: str | None = None
-    is_active: bool
+# # Revisar los siguientes models
+# class UserBase(BaseModel):
+#     username: str
+#     email: str
+#     full_name: str | None = None
+#     is_active: bool
 
-class UserIn(UserBase):
+# class UserIn(UserBase):
+#     password: str
+
+# class UserOut(UserBase):
+#     pass
+
+# class UserInDB(UserBase):
+#     hashed_password: str
+
+class UserBase(BaseModel):
+    email: str
+
+
+class UserCreate(UserBase):
     password: str
 
-class UserOut(UserBase):
-    pass
 
-class UserInDB(UserBase):
-    hashed_password: str
+class User(UserBase):
+    id: int
+    is_active: bool
+
+    class Config:
+        orm_mode = True

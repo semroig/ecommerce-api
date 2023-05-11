@@ -13,3 +13,4 @@ typing_extensions==4.5.0
 uvicorn==0.22.0
 virtualenv==20.23.0
 sqlalchemy
+psycopg2-binary
