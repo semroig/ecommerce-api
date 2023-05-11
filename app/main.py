@@ -46,6 +46,27 @@ class Product(BaseModel):
         description="The category record needs to be already created"
     )
 
+
+# Revisar los siguientes models
+class UserIn(BaseModel):
+    username: str
+    password: str
+    email: str
+    full_name: str | None = None
+
+
+class UserOut(BaseModel):
+    username: str
+    email: str
+    full_name: str | None = None
+
+
+class UserInDB(BaseModel):
+    username: str
+    hashed_password: str
+    email: str
+    full_name: str | None = None
+
 #### I declare all the endpoints ###
 
 @app.get("/", response_model = dict)
@@ -76,3 +97,20 @@ def read_brands():
 @app.get("/categories", response_model = list[Category])
 def read_categories():
     return {"Hello": "World"}
+
+
+# Reemplazar las siguientes funciones por lógica correcta
+def fake_password_hasher(raw_password: str):
+    return "supersecret" + raw_password
+
+def fake_save_user(user_in: UserIn):
+    hashed_password = fake_password_hasher(user_in.password)
+    # Next line "unwraps" the dict and add the hashed_password pair
+    user_in_db = UserInDB(**user_in.dict(), hashed_password=hashed_password)
+    print("User saved! ..not really")
+    return user_in_db
+
+@app.post("/user", response_model = UserOut)
+def create_user(user_in: UserIn):
+    user_saved = fake_save_user(user_in)
+    return user_saved

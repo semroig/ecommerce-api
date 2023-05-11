@@ -1,7 +1,5 @@
 # ecommerce-api
 
-python3 -m uvicorn app.main:app --reload
-
 space push
 
 Cosas para agregar en el readme:
@@ -13,6 +11,8 @@ Cosas para agregar en el readme:
             source env/bin/activate
         install dependencies
             pip install -r requirements.txt
+        run app
+            python3 -m uvicorn app.main:app --reload
         turn off env
             deactivate
     types declared using pydantic
