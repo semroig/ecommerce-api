@@ -1,9 +1,9 @@
 from pydantic import BaseModel, Field, condecimal
 
-### I declare all the models ###
+### I declare all the schemas ###
 
-class Brand(BaseModel):
-    id: int
+# Brand schemas
+class BrandBase(BaseModel):
     name: str = Field(
         title="The name of the brand",
         description="The name has a maximum length of 50 characters",
@@ -11,8 +11,14 @@ class Brand(BaseModel):
         example = "Xiaomi"
     )
 
-class Category(BaseModel):
+class BrandCreate(BrandBase):
+    pass
+
+class Brand(BrandBase):
     id: int
+
+# Category schemas
+class CategoryBase(BaseModel):
     name: str = Field(
         title="The name of the category",
         description="The name has a maximum length of 30 characters",
@@ -20,8 +26,14 @@ class Category(BaseModel):
         example = "Mobile phone"
     )
 
-class Product(BaseModel):
+class CategoryCreate(CategoryBase):
+    pass
+
+class Category(CategoryBase):
     id: int
+
+# Product schemas
+class ProductBase(BaseModel):
     name: str = Field(
         title="The name of the product",
         description="The name has a maximum length of 50 characters",
@@ -41,30 +53,98 @@ class Product(BaseModel):
         description="The category record needs to be already created"
     )
 
+class ProductCreate(ProductBase):
+    pass
 
-# # Revisar los siguientes models
-# class UserBase(BaseModel):
-#     username: str
-#     email: str
-#     full_name: str | None = None
-#     is_active: bool
+class Product(ProductBase):
+    id: int
 
-# class UserIn(UserBase):
-#     password: str
+# Adress schemas
+class AdressBase(BaseModel):
+    userId: int = Field(
+        title="The id of the user record",
+        description="The user record needs to be already created"
+    )
+    adressLine: str = Field(
+        title="The adress",
+        description="Street adress + department number + ... It has a maximum length of 100 characters",
+        max_length=100,
+        example = "The Oaks 540, department B"
+    )
+    city: str = Field(
+        title="The name of the city",
+        description="The city name has a maximum length of 30 characters",
+        max_length=30,
+        example = "Palo Alto"
+    )
+    state: str = Field(
+        title = "The name of the State",
+        description = "The State name has a maximum length of 30 characters",
+        max_length = 30,
+        example = "California"
+    )
+    postalCode: int = Field(
+        title = "The number of the postal code",
+        description = "The postal code number has a maximum length of 6 digits"
 
-# class UserOut(UserBase):
-#     pass
+        ## TO DO: max of 6 digits
 
-# class UserInDB(UserBase):
-#     hashed_password: str
+        # max_length = 50,
+        # example = "POCO M3"
+    )
 
+class AdressCreate(AdressBase):
+    pass
+
+class Adress(AdressBase):
+    id: int
+
+# Order schemas
+class OrderBase(BaseModel):
+    userId: int = Field(
+        title="The id of the user record",
+        description="The user record needs to be already created"
+    )
+    ## TO DO: hacerlo tipo date
+    date: str = Field(
+        title="The date when shipment was placed",
+        description="The date when shipment record was created"
+    )
+
+class OrderCreate(OrderBase):
+    pass
+
+class Order(OrderBase):
+    id: int
+
+# Shipment schemas
+class ShipmentBase(BaseModel):
+    adressId: int = Field(
+        title="The id of the adress record",
+        description="The shipment record needs to be already created"
+    )
+    orderId: int = Field(
+        title="The id of the order record",
+        description="The order record needs to be already created"
+    )
+    ## TO DO: hacerlo tipo date
+    date: str = Field(
+        title="The date when shipment was placed",
+        description="The date when shipment record was created"
+    )
+
+class ShipmentCreate(ShipmentBase):
+    pass
+
+class Shipment(ShipmentBase):
+    id: int
+
+# User schemas
 class UserBase(BaseModel):
     email: str
 
-
 class UserCreate(UserBase):
     password: str
-
 
 class User(UserBase):
     id: int
