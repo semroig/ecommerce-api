@@ -117,6 +117,30 @@ class OrderCreate(OrderBase):
 class Order(OrderBase):
     id: int
 
+# OrderItem schemas
+class OrderItemBase(BaseModel):
+    orderId: int = Field(
+        title="The id of the order record",
+        description="The order record needs to be already created"
+    )
+    productId: int = Field(
+        title="The id of the product record",
+        description="The product record needs to be already created"
+    )
+    quantity: int = Field(
+        title="The quantity ordered for this item"
+    )
+    unitPrice: condecimal(
+        gt = 0,
+        max_digits = 2
+    )
+
+class OrderCreate(OrderItemBase):
+    pass
+
+class Order(OrderItemBase):
+    id: int
+
 # Shipment schemas
 class ShipmentBase(BaseModel):
     adressId: int = Field(
