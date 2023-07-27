@@ -1,7 +1,5 @@
 from pydantic import BaseModel, Field, condecimal
 
-### I declare all the schemas ###
-
 # Brand schemas
 class BrandBase(BaseModel):
     name: str = Field(
