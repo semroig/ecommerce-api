@@ -12,14 +12,14 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-The next times, you'll just need to activate it 😉 and run it:
+The next times, you'll just need to activate it 😉 and run the app:
 
 ```
 source env/bin/activate
 python3 -m uvicorn app.main:app --reload
 ```
 
-When you are done working with the app, you can deactivate the virtual environment with just running:
+When you are done working on the project, you can deactivate the virtual environment with just running:
 
 ```
 deactivate

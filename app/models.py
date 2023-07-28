@@ -1,26 +1,41 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float
 from sqlalchemy.orm import relationship
 
 from .database import Base
 
-
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = "Users"
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
 
-    # items = relationship("Item", back_populates="owner")
+class Brand(Base):
+    __tablename__ = "Brands"
 
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
 
-# class Item(Base):
-#     __tablename__ = "items"
+    products = relationship("Product", back_populates="brand")
 
-#     id = Column(Integer, primary_key=True, index=True)
-#     title = Column(String, index=True)
-#     description = Column(String, index=True)
-#     owner_id = Column(Integer, ForeignKey("users.id"))
+class Category(Base):
+    __tablename__ = "Categories"
 
-#     owner = relationship("User", back_populates="items")
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+
+    products = relationship("Product", back_populates="category")
+
+class Product(Base):
+    __tablename__ = "Products"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    price = Column(Float, index=True)
+    is_active = Column(Boolean, default=True)
+    brand_id = Column(Integer, ForeignKey("Brands.id"))
+    category_id = Column(Integer, ForeignKey("Categories.id"))
+
+    brand = relationship("Brand", back_populates="products")
+    category = relationship("Category", back_populates="products")
