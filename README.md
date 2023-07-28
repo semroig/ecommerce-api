@@ -36,3 +36,6 @@ Cosas para agregar en el readme:
 
 Cosas para agregar al proyecto:
     EmailStr con email_validator
+    Deploy app en vercel con postgres
+    Testing
+    Docker container
