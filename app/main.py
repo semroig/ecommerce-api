@@ -45,9 +45,21 @@ def read_product(item_id: int):
     return {"Hello": "World"}
 
 # Brand routes
-@app.get("/brands", response_model = list[schemas.Brand])
-def read_brands():
-    return {"Hello": "World"}
+@app.post("/brands/", response_model=schemas.Brand)
+def create_brand(brand: schemas.BrandCreate, db: Session = Depends(get_db)):
+    return crud.create_brand(db=db, brand=brand)
+
+@app.get("/brands/", response_model = list[schemas.Brand])
+def read_brands(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    brands = crud.get_brands(db, skip=skip, limit=limit)
+    return brands
+
+@app.get("/brands/{brand_id}", response_model=schemas.User)
+def read_brand(brand_id: int, db: Session = Depends(get_db)):
+    db_brand = crud.get_brand(db, brand_id=brand_id)
+    if db_brand is None:
+        raise HTTPException(status_code=404, detail="Brand record not found")
+    return db_brand
 
 # Category routes
 @app.get("/categories", response_model = list[schemas.Category])
