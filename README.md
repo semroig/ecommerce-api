@@ -2,6 +2,10 @@
 
 A generic API for an ecommerce backend service. Developed with Python FastAPI and PostgreSQL.
 
+## Database entities architecture
+
+![lucidchart diagram screen](assets/db.png)
+
 ## How to run locally
 
 This project works with a Python virtual environment. For that sake, the first time you'll need to create that environment locally, activate it and install all the dependencies:
@@ -28,8 +32,8 @@ deactivate
 ## Pendiente de armar
 
 Cosas para agregar en el readme:
+    file tree organization
     types declared using pydantic
-    architecture design (lucid) and models
     request and response schemas on documentation
         redoc
         docs
