@@ -43,3 +43,4 @@ Cosas para agregar al proyecto:
     Deploy app en vercel con postgres
     Testing
     Docker container
+    eslint + prettier config para formateo

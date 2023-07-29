@@ -5,12 +5,12 @@ from sqlalchemy.orm import Session
 from . import crud, models, schemas
 from .database import SessionLocal, engine
 
+### Initial setup ###
+
 # Create the database tables
 models.Base.metadata.create_all(bind=engine)
-
 # Start the app
 app = FastAPI()
-
 # Dependency
 def get_db():
     db = SessionLocal()
@@ -21,10 +21,12 @@ def get_db():
 
 #### I declare all the endpoints ###
 
+# Root route
 @app.get("/", response_model = dict)
 def read_root() -> dict:
     return {"Hello": "World"}
 
+# Product routes
 # This route receives query params to filter search
 @app.get("/products", response_model = list[schemas.Product])
 def read_products(
@@ -42,31 +44,17 @@ def create_product(product: schemas.Product):
 def read_product(item_id: int):
     return {"Hello": "World"}
 
+# Brand routes
 @app.get("/brands", response_model = list[schemas.Brand])
 def read_brands():
     return {"Hello": "World"}
 
+# Category routes
 @app.get("/categories", response_model = list[schemas.Category])
 def read_categories():
     return {"Hello": "World"}
 
-
-# # Reemplazar las siguientes funciones por lógica correcta
-# def fake_password_hasher(raw_password: str):
-#     return "supersecret" + raw_password
-
-# def fake_save_user(user_in: UserIn):
-#     hashed_password = fake_password_hasher(user_in.password)
-#     # Next line "unwraps" the dict and add the hashed_password pair
-#     user_in_db = UserInDB(**user_in.dict(), hashed_password=hashed_password)
-#     print("User saved! ..not really")
-#     return user_in_db
-
-# @app.post("/user", response_model = UserOut)
-# def create_user(user_in: UserIn):
-#     user_saved = fake_save_user(user_in)
-#     return user_saved
-
+# User routes
 @app.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)

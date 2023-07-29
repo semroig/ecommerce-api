@@ -133,7 +133,7 @@ class OrderItemBase(BaseModel):
         max_digits = 2
     )
 
-class OrderCreate(OrderItemBase):
+class OrderItemCreate(OrderItemBase):
     pass
 
 class Order(OrderItemBase):

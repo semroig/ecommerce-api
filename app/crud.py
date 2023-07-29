@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 
 from . import models, schemas
 
+# User services
 def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
 
@@ -19,12 +20,30 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.refresh(db_user)
     return db_user
 
-# def get_items(db: Session, skip: int = 0, limit: int = 100):
-#     return db.query(models.Item).offset(skip).limit(limit).all()
+# Brand services
+def get_brand(db: Session, brand_id: int):
+    return db.query(models.Brand).filter(models.Brand.id == brand_id).first()
 
-# def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
-#     db_item = models.Item(**item.dict(), owner_id=user_id)
-#     db.add(db_item)
-#     db.commit()
-#     db.refresh(db_item)
-#     return db_item
+def get_brands(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Brand).offset(skip).limit(limit).all()
+
+def create_brand(db: Session, brand: schemas.BrandCreate):
+    db_brand = models.Brand(name=brand.name)
+    db.add(db_brand)
+    db.commit()
+    db.refresh(db_brand)
+    return db_brand
+
+# Category services
+def get_category(db: Session, category_id: int):
+    return db.query(models.Category).filter(models.Category.id == category_id).first()
+
+def get_categories(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Category).offset(skip).limit(limit).all()
+
+def create_category(db: Session, category: schemas.CategoryCreate):
+    db_category = models.Category(name=category.name)
+    db.add(db_category)
+    db.commit()
+    db.refresh(db_category)
+    return db_category
