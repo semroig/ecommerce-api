@@ -42,11 +42,11 @@ class ProductBase(BaseModel):
         gt = 0,
         max_digits = 2
     )
-    brandId: int = Field(
+    brand_id: int = Field(
         title="The id of the brand record",
         description="The brand record needs to be already created"
     )
-    categoryId: int = Field(
+    category_id: int = Field(
         title="The id of the category record",
         description="The category record needs to be already created"
     )
@@ -56,6 +56,7 @@ class ProductCreate(ProductBase):
 
 class Product(ProductBase):
     id: int
+    is_active: bool
 
 # Adress schemas
 class AdressBase(BaseModel):
