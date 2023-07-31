@@ -39,3 +39,33 @@ class Product(Base):
 
     brand = relationship("Brand", back_populates="products")
     category = relationship("Category", back_populates="products")
+
+class Adress(Base):
+    __tablename__ = "Adresses"
+
+    id = Column(Integer, primary_key=True, index=True)
+    adress_line = Column(String, index=True)
+    city = Column(String, index=True)
+    state = Column(String, index=True)
+    postal_code = Column(Integer, index=True)
+    user_id = Column(Integer, ForeignKey("Users.id"))
+
+    user = relationship("User", back_populates="adresses")
+
+class Order(Base):
+    __tablename__ = "Adresses"
+
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(String, index=True)
+    user_id = Column(Integer, ForeignKey("Users.id"))
+
+    user = relationship("User", back_populates="adresses")
+
+class OrderItem(Base):
+    __tablename__ = "OrderItems"
+
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(String, index=True)
+    order_id = Column(Integer, ForeignKey("Orders.id"))
+
+    order = relationship("Order", back_populates="order_items")

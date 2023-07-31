@@ -15,6 +15,9 @@ class BrandCreate(BrandBase):
 class Brand(BrandBase):
     id: int
 
+    class Config:
+        orm_mode = True
+
 # Category schemas
 class CategoryBase(BaseModel):
     name: str = Field(
@@ -29,6 +32,9 @@ class CategoryCreate(CategoryBase):
 
 class Category(CategoryBase):
     id: int
+
+    class Config:
+        orm_mode = True
 
 # Product schemas
 class ProductBase(BaseModel):
@@ -58,13 +64,16 @@ class Product(ProductBase):
     id: int
     is_active: bool
 
+    class Config:
+        orm_mode = True
+
 # Adress schemas
 class AdressBase(BaseModel):
-    userId: int = Field(
+    user_id: int = Field(
         title="The id of the user record",
         description="The user record needs to be already created"
     )
-    adressLine: str = Field(
+    adress_line: str = Field(
         title="The adress",
         description="Street adress + department number + ... It has a maximum length of 100 characters",
         max_length=100,
@@ -82,7 +91,7 @@ class AdressBase(BaseModel):
         max_length = 30,
         example = "California"
     )
-    postalCode: int = Field(
+    postal_code: int = Field(
         title = "The number of the postal code",
         description = "The postal code number has a maximum length of 6 digits"
 
@@ -98,9 +107,12 @@ class AdressCreate(AdressBase):
 class Adress(AdressBase):
     id: int
 
+    class Config:
+        orm_mode = True
+
 # Order schemas
 class OrderBase(BaseModel):
-    userId: int = Field(
+    user_id: int = Field(
         title="The id of the user record",
         description="The user record needs to be already created"
     )
@@ -116,20 +128,23 @@ class OrderCreate(OrderBase):
 class Order(OrderBase):
     id: int
 
+    class Config:
+        orm_mode = True
+
 # OrderItem schemas
 class OrderItemBase(BaseModel):
-    orderId: int = Field(
+    order_id: int = Field(
         title="The id of the order record",
         description="The order record needs to be already created"
     )
-    productId: int = Field(
+    product_id: int = Field(
         title="The id of the product record",
         description="The product record needs to be already created"
     )
     quantity: int = Field(
         title="The quantity ordered for this item"
     )
-    unitPrice: condecimal(
+    unit_price: condecimal(
         gt = 0,
         max_digits = 2
     )
@@ -139,6 +154,9 @@ class OrderItemCreate(OrderItemBase):
 
 class Order(OrderItemBase):
     id: int
+
+    class Config:
+        orm_mode = True
 
 # Shipment schemas
 class ShipmentBase(BaseModel):
@@ -161,6 +179,9 @@ class ShipmentCreate(ShipmentBase):
 
 class Shipment(ShipmentBase):
     id: int
+
+    class Config:
+        orm_mode = True
 
 # User schemas
 class UserBase(BaseModel):

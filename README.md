@@ -40,7 +40,8 @@ Cosas para agregar en el readme:
 
 Cosas para agregar al proyecto:
     EmailStr con email_validator
-    Deploy app en vercel con postgres
+    Deploy app -> donde??
+    Deploy db con postgres en Render
     Testing
     Docker container
     eslint + prettier config para formateo
