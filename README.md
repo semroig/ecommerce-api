@@ -29,6 +29,14 @@ When you are done working on the project, you can deactivate the virtual environ
 deactivate
 ```
 
+## Setting up PostgreSQL instance url variable
+
+To set up the PostgreSQL instance, you have to create an environment variable. In order to do so, go to *env/bin/activate* and add this line to the file (setting **your_database_url** with the correct url):
+
+```
+export SQLALCHEMY_DATABASE_URL='{your_database_url}'
+```
+
 ## Pendiente de armar
 
 Cosas para agregar en el readme:

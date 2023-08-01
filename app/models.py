@@ -53,7 +53,7 @@ class Adress(Base):
     user = relationship("User", back_populates="adresses")
 
 class Order(Base):
-    __tablename__ = "Adresses"
+    __tablename__ = "Orders"
 
     id = Column(Integer, primary_key=True, index=True)
     date = Column(String, index=True)
@@ -65,7 +65,21 @@ class OrderItem(Base):
     __tablename__ = "OrderItems"
 
     id = Column(Integer, primary_key=True, index=True)
-    date = Column(String, index=True)
+    quantity = Column(Integer, index=True)
+    unit_price = Column(Float, index=True)
     order_id = Column(Integer, ForeignKey("Orders.id"))
+    product_id = Column(Integer, ForeignKey("Products.id"))
 
     order = relationship("Order", back_populates="order_items")
+    product = relationship("Product", back_populates="order_items")
+
+class Shipment(Base):
+    __tablename__ = "Shipments"
+
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(String, index=True)
+    order_id = Column(Integer, ForeignKey("Orders.id"))
+    adress_id = Column(Integer, ForeignKey("Adresses.id"))
+
+    order = relationship("Order", back_populates="shipments")
+    adress = relationship("Adress", back_populates="shipments")

@@ -160,11 +160,11 @@ class Order(OrderItemBase):
 
 # Shipment schemas
 class ShipmentBase(BaseModel):
-    adressId: int = Field(
+    adress_id: int = Field(
         title="The id of the adress record",
         description="The shipment record needs to be already created"
     )
-    orderId: int = Field(
+    order_id: int = Field(
         title="The id of the order record",
         description="The order record needs to be already created"
     )
