@@ -44,6 +44,7 @@ class ProductBase(BaseModel):
         max_length=50,
         example = "POCO M3"
     )
+    # TO DO: revisar max_digits deberia ser digitos decimales
     price: condecimal(
         gt = 0,
         max_digits = 2

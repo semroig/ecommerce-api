@@ -32,17 +32,24 @@ def read_root() -> dict:
 def read_products(
     brand: Union[str, None] = None,
     category: Union[str, None] = None,
-    name: Union[str, None] = None
+    name: Union[str, None] = None,
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(get_db)
 ):
-    return {"Hello": "World"}
+    products = crud.get_products(db, skip=skip, limit=limit)
+    return products
 
 @app.post("/products", response_model = schemas.Product)
-def create_product(product: schemas.Product):
-    return {"Hello": "World"}
+def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
+    return crud.create_product(db=db, product=product)
 
-@app.get("/products/{item_id}", response_model = schemas.Product)
-def read_product(item_id: int):
-    return {"Hello": "World"}
+@app.get("/products/{product_id}", response_model = schemas.Product)
+def read_product(product_id: int, db: Session = Depends(get_db)):
+    db_product = crud.get_product(db, product_id=product_id)
+    if db_product is None:
+        raise HTTPException(status_code=404, detail="Product record not found")
+    return db_product
 
 # Brand routes
 @app.post("/brands/", response_model=schemas.Brand)
@@ -54,7 +61,7 @@ def read_brands(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     brands = crud.get_brands(db, skip=skip, limit=limit)
     return brands
 
-@app.get("/brands/{brand_id}", response_model=schemas.User)
+@app.get("/brands/{brand_id}", response_model=schemas.Brand)
 def read_brand(brand_id: int, db: Session = Depends(get_db)):
     db_brand = crud.get_brand(db, brand_id=brand_id)
     if db_brand is None:

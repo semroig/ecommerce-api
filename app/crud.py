@@ -28,7 +28,7 @@ def get_brands(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Brand).offset(skip).limit(limit).all()
 
 def create_brand(db: Session, brand: schemas.BrandCreate):
-    db_brand = models.Brand(name=brand.name)
+    db_brand = models.Brand(**brand.dict())
     db.add(db_brand)
     db.commit()
     db.refresh(db_brand)
@@ -42,7 +42,7 @@ def get_categories(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Category).offset(skip).limit(limit).all()
 
 def create_category(db: Session, category: schemas.CategoryCreate):
-    db_category = models.Category(name=category.name)
+    db_category = models.Category(**category.dict())
     db.add(db_category)
     db.commit()
     db.refresh(db_category)
